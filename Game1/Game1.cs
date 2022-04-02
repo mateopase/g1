@@ -8,13 +8,13 @@ namespace Game1
     {
         private Texture2D guyTexture;
         private Vector2 guyPosition;
-        private float guyVelocity = 2f;
+        private float guyVelocity = 50;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            this._graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -22,20 +22,21 @@ namespace Game1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _graphics.IsFullScreen = false;
-            _graphics.PreferredBackBufferWidth = 512;
-            _graphics.PreferredBackBufferHeight = 512;
-            _graphics.ApplyChanges();
+            this._graphics.IsFullScreen = false;
+            this._graphics.PreferredBackBufferWidth = 512;
+            this._graphics.PreferredBackBufferHeight = 512;
+            this._graphics.ApplyChanges();
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            this._spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            guyTexture = Content.Load<Texture2D>("space-brain");
+            this.guyTexture = Content.Load<Texture2D>("space-brain");
+            this.guyPosition = new Vector2(200, 50);
         }
 
         protected override void Update(GameTime gameTime)
@@ -44,6 +45,23 @@ namespace Game1
                 Exit();
 
             // TODO: Add your update logic here
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                guyPosition += new Vector2(0, 1) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                guyPosition += new Vector2(1, 0) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                guyPosition += new Vector2(-1, 0) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                guyPosition += new Vector2(0, -1) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+            }
+
 
             base.Update(gameTime);
         }
@@ -54,7 +72,7 @@ namespace Game1
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(guyTexture, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(guyTexture, guyPosition, Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
