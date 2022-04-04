@@ -8,11 +8,22 @@ namespace Game1
 {
     public class Game1 : Game
     {
-        private Texture2D guyTexture;
-        private Vector2 guyPosition;
-        private float guyVelocity = 150;
+        private const float MAX_SPEED = 175;
+        private const float X_ACCELERATION = 950;
+        private const float GRAVITY_ACCELERATION = 900;
+        private const float JUMP_VELOCITY = 300;
+        private const float Y_ACCELERATION = 950;
+        private const float MAX_JUMP_SPEED = 300;
+        private const int SCREEN_WIDTH = 512;
+        private const int SCREEN_HEIGHT = 128;
+        
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        private Texture2D guyTexture;
+        private Vector2 guyPosition;
+        private Vector2 guyVelocity;
+        private bool guyOnGround = false;
 
         public Game1()
         {
@@ -25,11 +36,11 @@ namespace Game1
         {
             // TODO: Add your initialization logic here
             this._graphics.IsFullScreen = false;
-            this._graphics.PreferredBackBufferWidth = 512;
-            this._graphics.PreferredBackBufferHeight = 128;
+            this._graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
+            this._graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
             this._graphics.ApplyChanges();
 
-            this.guyPosition = new Vector2(50, 50);
+            this.guyPosition = new Vector2(0, 0);
 
             base.Initialize();
         }
@@ -52,26 +63,66 @@ namespace Game1
             // Movement
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                guyPosition += new Vector2(1, 0) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                /* Here we can check if the player is changing direction
+                 * That way the player can skid and turn more quickly than 
+                 * just deccelerating down to 0 then back up to speed
+                 * Maybe adding some kind of conditional acceleration scaling is good?
+                if (Math.Sign(this.guyVelocity.X) == -1)
+                {
+                    this.guyVelocity.X = 0f;
+                }
+                */
+                this.guyVelocity.X += X_ACCELERATION * (float) gameTime.ElapsedGameTime.TotalSeconds;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                guyPosition += new Vector2(-1, 0) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                this.guyVelocity.X -= X_ACCELERATION * (float) gameTime.ElapsedGameTime.TotalSeconds;
             }
+            else
+            {
+                // Slow down if user lets go of key
+                var xDirection = Math.Sign(this.guyVelocity.X);
+                this.guyVelocity.X -= xDirection* X_ACCELERATION * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                this.guyVelocity.X = xDirection == -1 ? Math.Min(this.guyVelocity.X, 0f) : Math.Max(this.guyVelocity.X, 0f);
+            }
+
+            this.guyVelocity.X = Math.Clamp(this.guyVelocity.X, -MAX_SPEED, MAX_SPEED);
 
             // Jump
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                guyPosition += new Vector2(0, -1) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                if (this.guyOnGround)
+                {
+                    this.guyVelocity.Y -= JUMP_VELOCITY;
+                    this.guyOnGround = false;
+                }
             }
 
-            // Colission
-            guyPosition.Y = Math.Clamp(guyPosition.Y, 0, 128-32);
-
             // Gravity
-            // TODO
+            this.guyVelocity.Y += GRAVITY_ACCELERATION * (float) gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Update position
+            var prevPosition = guyPosition; // This is a copy operation :)
+            this.guyPosition += this.guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Collide with edges
+            this.guyPosition.Y = Math.Clamp(guyPosition.Y, 0, SCREEN_HEIGHT-32);
+            this.guyPosition.X = Math.Clamp(guyPosition.X, 0, SCREEN_WIDTH-32);
+
+            // Update velocity if wall hit
+            if (prevPosition.Y == this.guyPosition.Y)
+            {
+                this.guyVelocity.Y = 0f;
+                this.guyOnGround = true;
+            }
+            if (prevPosition.X == this.guyPosition.X)
+            {
+                this.guyVelocity.X = 0f;
+            }
 
             base.Update(gameTime);
+
+            Console.WriteLine(this.guyVelocity);
         }
 
         protected override void Draw(GameTime gameTime)
