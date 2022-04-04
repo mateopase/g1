@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,7 +10,7 @@ namespace Game1
     {
         private Texture2D guyTexture;
         private Vector2 guyPosition;
-        private float guyVelocity = 50;
+        private float guyVelocity = 150;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -24,8 +26,10 @@ namespace Game1
             // TODO: Add your initialization logic here
             this._graphics.IsFullScreen = false;
             this._graphics.PreferredBackBufferWidth = 512;
-            this._graphics.PreferredBackBufferHeight = 512;
+            this._graphics.PreferredBackBufferHeight = 128;
             this._graphics.ApplyChanges();
+
+            this.guyPosition = new Vector2(50, 50);
 
             base.Initialize();
         }
@@ -36,20 +40,17 @@ namespace Game1
 
             // TODO: use this.Content to load your game content here
             this.guyTexture = Content.Load<Texture2D>("space-brain");
-            this.guyPosition = new Vector2(200, 50);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                guyPosition += new Vector2(0, 1) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                Exit();
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+
+            // Movement
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 guyPosition += new Vector2(1, 0) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
             }
@@ -57,11 +58,18 @@ namespace Game1
             {
                 guyPosition += new Vector2(-1, 0) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+
+            // Jump
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 guyPosition += new Vector2(0, -1) * guyVelocity * (float) gameTime.ElapsedGameTime.TotalSeconds;
             }
 
+            // Colission
+            guyPosition.Y = Math.Clamp(guyPosition.Y, 0, 128-32);
+
+            // Gravity
+            // TODO
 
             base.Update(gameTime);
         }
