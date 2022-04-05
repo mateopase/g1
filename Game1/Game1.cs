@@ -86,11 +86,10 @@ namespace Game1
                 this.guyVelocity.X = xDirection == -1 ? Math.Min(this.guyVelocity.X, 0f) : Math.Max(this.guyVelocity.X, 0f);
             }
 
-            this.guyVelocity.X = Math.Clamp(this.guyVelocity.X, -MAX_SPEED, MAX_SPEED);
-
             // Jump
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.Space))
             {
+                // TODO Vary jump height based on how long key was held
                 if (this.guyOnGround)
                 {
                     this.guyVelocity.Y -= JUMP_VELOCITY;
@@ -100,6 +99,10 @@ namespace Game1
 
             // Gravity
             this.guyVelocity.Y += GRAVITY_ACCELERATION * (float) gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Velocity limits
+            //this.guyVelocity.Y = Math.Clamp(this.guyVelocity.Y, -MAX_JUMP_SPEED, )
+            this.guyVelocity.X = Math.Clamp(this.guyVelocity.X, -MAX_SPEED, MAX_SPEED);
 
             // Update position
             var prevPosition = guyPosition; // This is a copy operation :)
