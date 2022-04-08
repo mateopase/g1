@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Engine.Scenes;
 
+using MainGame.Scenes;
+
 namespace MainGame
 {
     public class MainGame : Game
@@ -41,20 +43,20 @@ namespace MainGame
             this._spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Add the main scene manager
-            Components.Add(new SceneManager(this));
+            Components.Add(new SceneManager(this, new MainMenuScene()));
 
             base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            this._sceneManager.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
 
-            base.Draw(gameTime);
+            this._sceneManager.Draw(gameTime);
         }
     }
 }
