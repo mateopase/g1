@@ -5,10 +5,10 @@ using Engine.Core;
 
 namespace Engine.Scenes
 {
-    public class SceneManager : ADrawable
+    public class SceneManager : Drawable
     {
-        private AScene _activeScene;
-        private AScene ActiveScene {
+        private Scene _activeScene;
+        private Scene ActiveScene {
             get => this._activeScene;
             set {
                 // Unload old scene
@@ -20,7 +20,7 @@ namespace Engine.Scenes
             }
         }
 
-        public SceneManager(Game game, AScene initialScene) : base(game)
+        public SceneManager(Game game, Scene initialScene) : base(game)
         {
             this.ActiveScene = initialScene;
         }

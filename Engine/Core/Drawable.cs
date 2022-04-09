@@ -5,12 +5,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Engine.Core
 {
-    public abstract class ADrawable : AUpdateable
+    public abstract class Drawable : Updateable
     {
         protected readonly SpriteBatch _spriteBatch;
         protected ContentManager _contentManager;
 
-        public ADrawable(Game game) : base(game)
+        public Drawable(Game game) : base(game)
         {
             this._spriteBatch = this._game.Services.GetService<SpriteBatch>();
         }

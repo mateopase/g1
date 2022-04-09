@@ -8,10 +8,10 @@ using MainGame.Scenes;
 
 namespace MainGame
 {
-    public class MainGame : AGameBase
+    public class MainGame : Core
     {
 
-        protected override AScene InitialScene => new MainMenuScene(this);
+        protected override Scene InitialScene => new MainMenuScene(this);
 
         private GraphicsDeviceManager _graphics;
 

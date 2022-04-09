@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework;
 
 namespace Engine.Core
 {
-    public abstract class AUpdateable : IDisposable
+    public abstract class Updateable : IDisposable
     {
         protected readonly Game _game;
         protected bool _disposed;
 
-        public AUpdateable(Game game)
+        public Updateable(Game game)
         {
             this._game = game;
         }

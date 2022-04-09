@@ -6,12 +6,12 @@ using Engine.Scenes;
 
 namespace MainGame.Scenes
 {
-    public class MainMenuScene : AScene
+    public class MainMenuScene : Scene
     {
         private SpriteFont _font;
-        private AScene _nextScene;
+        private Scene _nextScene;
 
-        public override AScene NextScene
+        public override Scene NextScene
         {
             get => this._nextScene ??= new GameScene(this._game);
         }

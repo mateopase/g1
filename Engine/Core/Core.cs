@@ -5,9 +5,9 @@ using Engine.Scenes;
 
 namespace Engine.Core
 {
-    public abstract class AGameBase : Game
+    public abstract class Core : Game
     {
-        protected abstract AScene InitialScene { get; }
+        protected abstract Scene InitialScene { get; }
 
         protected SceneManager _sceneManager;
 

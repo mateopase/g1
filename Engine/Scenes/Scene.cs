@@ -4,12 +4,12 @@ using Engine.Core;
 
 namespace Engine.Scenes
 {
-    public abstract class AScene : ADrawable
+    public abstract class Scene : Drawable
     {
-        public abstract AScene NextScene { get; }
+        public abstract Scene NextScene { get; }
         public SceneState State { get; protected set; } = SceneState.INACTIVE;
 
-        public AScene(Game game) : base(game) { }
+        public Scene(Game game) : base(game) { }
 
         public override void Initialize()
         {
