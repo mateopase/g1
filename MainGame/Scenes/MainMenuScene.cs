@@ -1,52 +1,39 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using Engine.Scenes;
 
 namespace MainGame.Scenes
 {
-    public class MainMenuScene : IScene
+    public class MainMenuScene : AScene
     {
-        private IScene _nextScene;
-        public IScene NextScene
+        private SpriteFont _font;
+        private AScene _nextScene;
+
+        public override AScene NextScene
         {
-            get => this._nextScene ??= new GameScene();
+            get => this._nextScene ??= new GameScene(this._game);
         }
 
-        private SceneState _sceneState = SceneState.COMPLETED;
-        public SceneState State
+        public MainMenuScene(Game game) : base(game) { }
+
+        protected override void LoadContent()
         {
-            get => this._sceneState;
-            set => this._sceneState = value;
+            this._font = this._contentManager.Load<SpriteFont>("Font");
         }
 
-        public MainMenuScene()
+        public override void Update(GameTime gameTime)
         {
-
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                this.State = SceneState.INACTIVE;
+            }
         }
 
-        public void Initialize()
+        public override void Draw(GameTime gameTime)
         {
-            this.State = SceneState.ACTIVE;
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            
-        }
-
-        public void Draw(GameTime gameTime)
-        {
-
-        }
-
-        public void LoadContent()
-        {
-
-        }
-
-        public void UnloadContent()
-        {
-
+            this._spriteBatch.DrawString(this._font, "in menu", new Vector2(0, 0), Color.White);
         }
     }
 }

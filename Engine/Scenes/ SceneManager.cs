@@ -1,47 +1,56 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using Engine.Core;
 
 namespace Engine.Scenes
 {
-    public class SceneManager : DrawableGameComponent
+    public class SceneManager : ADrawable
     {
-        private IScene _currentScene;
-        private IScene CurrentScene {
-            get => this._currentScene;
+        private AScene _activeScene;
+        private AScene ActiveScene {
+            get => this._activeScene;
             set {
-                // TODO Is this the best place to put this stuff? Maybe separate funcs?
-                // Unload completed scene
-                this._currentScene?.UnloadContent();
+                // Unload old scene
+                this._activeScene?.Dispose();
                 // Set next scene as current scene
-                this._currentScene = value;
-                // Initialize and load current scene
-                this._currentScene.Initialize();
-                this._currentScene.LoadContent();
+                this._activeScene = value;
+                // Initialize current scene for drawing
+                this._activeScene.Initialize();
             }
         }
 
-        public SceneManager(Game game, IScene initialScene) : base(game)
+        public SceneManager(Game game, AScene initialScene) : base(game)
         {
-            this.CurrentScene = initialScene;
+            this.ActiveScene = initialScene;
         }
+
+        public override void Initialize() { }
+
+        protected override void LoadContent() { }
 
         public override void Update(GameTime gameTime)
         {
-            if (this.CurrentScene.State == SceneState.COMPLETED)
+            if (this.ActiveScene.State == SceneState.INACTIVE)
             {
-                this.CurrentScene = this.CurrentScene.NextScene;
+                this.ActiveScene = this.ActiveScene.NextScene;
             }
 
-            this.CurrentScene.Update(gameTime);
+            this.ActiveScene.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            this.CurrentScene.Draw(gameTime);
+            this._game.GraphicsDevice.Clear(Color.Black);
+
+            this._spriteBatch.Begin();
+            this.ActiveScene.Draw(gameTime);
+            this._spriteBatch.End();
         }
 
-        protected override void UnloadContent()
+        protected override void DisposeManaged()
         {
-            this._currentScene?.UnloadContent();
+            this.ActiveScene?.Dispose();
         }
     }
 }
