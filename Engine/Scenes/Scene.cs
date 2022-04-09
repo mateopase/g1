@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 
 using Engine.Core;
+using Engine.Entities;
 
 namespace Engine.Scenes
 {
@@ -8,6 +9,9 @@ namespace Engine.Scenes
     {
         public abstract Scene NextScene { get; }
         public SceneState State { get; protected set; } = SceneState.INACTIVE;
+
+        protected readonly Camera _camera;
+        protected readonly World _world;
 
         public Scene(Game game) : base(game) { }
 

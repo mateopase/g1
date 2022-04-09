@@ -24,6 +24,7 @@ namespace Engine.Core
             this._sceneManager.Initialize();
         }
 
+        // TODO A gameplay loop with a fixed update (FixedUpdate) could be implemented here
         protected override void Update(GameTime gameTime)
         {
             this._sceneManager.Update(gameTime);
