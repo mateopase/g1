@@ -4,12 +4,14 @@ using Microsoft.Xna.Framework.Input;
 
 using Engine.Scenes;
 
+using MainGame;
+
 namespace MainGame.Scenes
 {
     public class GameScene : Scene
     {
         private Scene _nextScene;
-        private SpriteFont _font;
+        private EntityNode _mainNode;
 
         public override Scene NextScene
         {
@@ -20,20 +22,20 @@ namespace MainGame.Scenes
 
         protected override void LoadContent()
         {
-            this._font = this._contentManager.Load<SpriteFont>("Font");
+            this._circle = _contentManager.Load<Texture2D>("body-test");
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                this.State = SceneState.INACTIVE;
+                this.State = SceneState.Inactive;
             }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            this._spriteBatch.DrawString(this._font, "in game", new Vector2(0, 0), Color.White);
+            this._spriteBatch.Draw(this._circle, new Vector2(16, 16), Color.White);
         }
     }
 }

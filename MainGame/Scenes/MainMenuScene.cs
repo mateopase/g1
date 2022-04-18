@@ -27,13 +27,13 @@ namespace MainGame.Scenes
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                this.State = SceneState.INACTIVE;
+                this.State = SceneState.Inactive;
             }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            this._spriteBatch.DrawString(this._font, "in menu", new Vector2(0, 0), Color.White);
+            this._spriteBatch.DrawString(this._font, "Press space to start!", new Vector2(100, 10), Color.White);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Engine.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            if (this.ActiveScene.State == SceneState.INACTIVE)
+            if (this.ActiveScene.State == SceneState.Inactive)
             {
                 this.ActiveScene = this.ActiveScene.NextScene;
             }
