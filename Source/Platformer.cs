@@ -4,18 +4,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Engine.Core;
 using Engine.Scenes;
 
-using MainGame.Scenes;
+using Game.Scenes;
 
-namespace MainGame
+namespace Platformer
 {
-    public class MainGame : Core
+    public class Platformer : Core
     {
 
         protected override Scene InitialScene => new MainMenuScene(this);
 
         private GraphicsDeviceManager _graphics;
 
-        public MainGame()
+        public Platformer()
         {
             this._graphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";

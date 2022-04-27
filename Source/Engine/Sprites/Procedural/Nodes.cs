@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace MainGame
+namespace Engine.Sprites.Procedural
 {
     public enum EntityLinkType
     {

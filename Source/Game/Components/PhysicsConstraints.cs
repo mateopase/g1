@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace Components
+namespace Game.Components
 {
     public struct PhysicsConstraints
     {

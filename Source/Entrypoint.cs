@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace MainGame
+namespace Platformer
 {
     public static class Program
     {
         [STAThread]
         static void Main()
         {
-            using (var game = new MainGame())
+            using (var game = new Platformer())
                 game.Run();
         }
     }
