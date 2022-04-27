@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace Game.Components
+namespace Platformer.Components
 {
     public struct PositionComponent
     {

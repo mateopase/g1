@@ -2,7 +2,7 @@
 
 namespace Platformer
 {
-    public static class Program
+    public static class Entrypoint
     {
         [STAThread]
         static void Main()

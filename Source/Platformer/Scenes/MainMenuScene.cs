@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 using Engine.Scenes;
 
-namespace Game.Scenes
+namespace Platformer.Scenes
 {
     public class MainMenuScene : Scene
     {
@@ -28,6 +28,10 @@ namespace Game.Scenes
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 this.State = SceneState.Inactive;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                //Exit();
             }
         }
 

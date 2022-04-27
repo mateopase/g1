@@ -4,7 +4,7 @@ using MonoGame.Extended.Entities;
 
 using Engine.Scenes;
 
-namespace Game.Scenes
+namespace Platformer.Scenes
 {
     public class BallScene : Scene
     {

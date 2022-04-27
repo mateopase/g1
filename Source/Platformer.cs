@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Engine.Core;
 using Engine.Scenes;
 
-using Game.Scenes;
+using Platformer.Scenes;
 
 namespace Platformer
 {

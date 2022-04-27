@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 
-namespace Game.Systems
+namespace Platformer.Systems
 {
     public class PositionComponent
     {

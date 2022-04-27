@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 using Engine.Scenes;
 
-namespace Game.Scenes
+namespace Platformer.Scenes
 {
     public class GameScene : Scene
     {
