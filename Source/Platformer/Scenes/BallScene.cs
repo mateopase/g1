@@ -18,6 +18,7 @@ namespace Platformer.Scenes
 
         public BallScene(Game game) : base(game)
         {
+            this._ecsWorld = new WorldBuilder().Build();
         }
 
         protected override void LoadContent()
