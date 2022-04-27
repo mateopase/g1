@@ -18,7 +18,6 @@ namespace MainGame.Scenes
 
         public BallScene(Game game) : base(game)
         {
-            this._ecsWorld = new WorldBuilder().AddSystem()
         }
 
         protected override void LoadContent()
