@@ -23,6 +23,7 @@ namespace Platformer.Scenes
 
         protected override void LoadContent()
         {
+            Entity entity = this._ecsWorld.CreateEntity();
         }
 
         public override void Update(GameTime gameTime)
