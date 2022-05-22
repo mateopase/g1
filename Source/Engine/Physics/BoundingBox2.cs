@@ -1,8 +1,17 @@
 namespace Engine.Physics
 {
-    public struct BoundingBox2
+    public enum BoundingBoxType
     {
-        public RectangleF Rectangle { get; set; }
+        StopMovement = 0,
+        Sensor
+        
+    }
+
+    public class BoundingBox2
+    {
+        public Transform2 RelativeTransform { get; set; }
+        public Rectangle2 Rectangle { get; set; }
+        public BoundingBoxType BoxType { get; set; }
         public int EntityId { get; set; }
     }
 }

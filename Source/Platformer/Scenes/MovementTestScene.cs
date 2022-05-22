@@ -8,7 +8,7 @@ using Engine.Scenes;
 
 namespace Platformer.Scenes
 {
-    public class GameScene : Scene
+    public class MovementTestScene : Scene
     {
         private Scene _nextScene;
 
@@ -29,7 +29,7 @@ namespace Platformer.Scenes
         private Vector2 _guyVelocity;
         private bool guyOnGround = false;
 
-        public GameScene(Game game) : base(game) { }
+        public MovementTestScene(Game game) : base(game) { }
 
         protected override void LoadContent()
         {

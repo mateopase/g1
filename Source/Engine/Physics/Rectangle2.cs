@@ -6,7 +6,7 @@ namespace Engine.Physics
 {
     /// A floating point version of the Monogame Rectangle class.
     /// Borrowed from the Humper RectangleF class.
-    public struct RectangleF : IEquatable<RectangleF>
+    public struct Rectangle2 : IEquatable<Rectangle2>
     {
         // Top left point
         public float X;
@@ -48,7 +48,7 @@ namespace Engine.Physics
 
         public Vector2 Center => new Vector2(X + Width / 2f, Y + Height / 2f);
 
-        public RectangleF(float x, float y, float width, float height)
+        public Rectangle2(float x, float y, float width, float height)
         {
             X = x;
             Y = y;
@@ -56,7 +56,7 @@ namespace Engine.Physics
             Height = height;
         }
 
-        public RectangleF(Vector2 location, Vector2 size)
+        public Rectangle2(Vector2 location, Vector2 size)
         {
             X = location.X;
             Y = location.Y;
@@ -65,7 +65,7 @@ namespace Engine.Physics
         }
 
         // Compares whether two <see cref="RectangleF"/> instances are equal.
-        public static bool operator ==(RectangleF a, RectangleF b)
+        public static bool operator ==(Rectangle2 a, Rectangle2 b)
         {
             const float epsilon = 0.00001f;
             return Math.Abs(a.X - b.X) < epsilon
@@ -75,7 +75,7 @@ namespace Engine.Physics
         }
 
         // Compares whether two <see cref="RectangleF"/> instances are not equal.
-        public static bool operator !=(RectangleF a, RectangleF b)
+        public static bool operator !=(Rectangle2 a, Rectangle2 b)
         {
             return !(a == b);
         }
@@ -96,17 +96,17 @@ namespace Engine.Physics
             return X <= value.X && value.X < X + Width && Y <= value.Y && value.Y < Y + Height;
         }
 
-        public bool Contains(RectangleF value)
+        public bool Contains(Rectangle2 value)
         {
             return (X <= value.X) && (value.X + value.Width <= X + Width) && (Y <= value.Y) && (value.Y + value.Height <= Y + Height);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is RectangleF && this == (RectangleF)obj;
+            return obj is Rectangle2 && this == (Rectangle2)obj;
         }
 
-        public bool Equals(RectangleF other)
+        public bool Equals(Rectangle2 other)
         {
             return this == other;
         }
@@ -117,7 +117,7 @@ namespace Engine.Physics
         }
 
         // Gets whether or not the other RectangleF intersects with this RectangleF.
-        public bool Intersects(RectangleF value)
+        public bool Intersects(Rectangle2 value)
         {
             return value.Left < Right && Left < value.Right &&
                    value.Top < Bottom && Top < value.Bottom;
@@ -125,10 +125,10 @@ namespace Engine.Physics
 
 
         /// <summary>
-        /// Changes the <see cref="Location"/> of this <see cref="RectangleF"/>.
+        /// Changes the <see cref="Location"/> of this <see cref="Rectangle2"/>.
         /// </summary>
-        /// <param name="offsetX">The x coordinate to add to this <see cref="RectangleF"/>.</param>
-        /// <param name="offsetY">The y coordinate to add to this <see cref="RectangleF"/>.</param>
+        /// <param name="offsetX">The x coordinate to add to this <see cref="Rectangle2"/>.</param>
+        /// <param name="offsetY">The y coordinate to add to this <see cref="Rectangle2"/>.</param>
         public void Offset(int offsetX, int offsetY)
         {
             X += offsetX;
@@ -136,10 +136,10 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        /// Changes the <see cref="Location"/> of this <see cref="RectangleF"/>.
+        /// Changes the <see cref="Location"/> of this <see cref="Rectangle2"/>.
         /// </summary>
-        /// <param name="offsetX">The x coordinate to add to this <see cref="RectangleF"/>.</param>
-        /// <param name="offsetY">The y coordinate to add to this <see cref="RectangleF"/>.</param>
+        /// <param name="offsetX">The x coordinate to add to this <see cref="Rectangle2"/>.</param>
+        /// <param name="offsetY">The y coordinate to add to this <see cref="Rectangle2"/>.</param>
         public void Offset(float offsetX, float offsetY)
         {
             X += offsetX;
@@ -168,7 +168,7 @@ namespace Engine.Physics
         /// to push objects in order to resolve collisions.
         /// If the rectangles are not intersecting, Vector2.Zero is returned.
         /// </returns>
-        public Vector2 IntersectionDepth(RectangleF other)
+        public Vector2 IntersectionDepth(Rectangle2 other)
         {
             // Calculate half sizes.
             var thisHalfWidth = Width / 2.0f;

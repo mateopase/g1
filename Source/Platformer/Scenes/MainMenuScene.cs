@@ -13,7 +13,7 @@ namespace Platformer.Scenes
 
         public override Scene NextScene
         {
-            get => this._nextScene ??= new GameScene(this._game);
+            get => this._nextScene ??= new MovementTestScene(this._game);
         }
 
         public MainMenuScene(Game game) : base(game) { }
